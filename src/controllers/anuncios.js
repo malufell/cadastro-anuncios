@@ -4,6 +4,8 @@ const CreateService = require('../services/Create');
 const createService = new CreateService();
 const FindAllService = require('../services/FindAll');
 const findAllService = new FindAllService();
+const FormataNumeroEmMoedaService = require('../services/FormataNumeroEmMoeda');
+
 
 class Anuncios {
 
@@ -48,7 +50,8 @@ class Anuncios {
       const anuncioNaoEncontrado = ((busca || dataInicio || dataTermino) && anuncios.length == 0);
 
       anuncios = anuncios.map(function (anuncio) {
-        anuncio.investimentoTotal = Number(anuncio.investimentoTotal).toLocaleString('pt-BR', { minimumFractionDigits: 2});
+        anuncio.investimentoTotal = new FormataNumeroEmMoedaService(anuncio.investimentoTotal).call();
+        anuncio.investimentoDia = new FormataNumeroEmMoedaService(anuncio.investimentoDia).call();
         return anuncio;
       });
 

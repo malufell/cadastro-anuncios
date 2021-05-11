@@ -15,34 +15,35 @@
     <h1 class="text-center m-5">Relatório de Anúncios</h1>
 
     <div class="container-fluid">
-        <div class="container">
+        <div class="mx-3">
 
             <!-- Busca -->
-            <form action='/anuncios?' class="search pl-3">
-                <fieldset class="border rounded-1 p-3">
-                    <div class="row d-flex align-items-end">
-                        <div class="col-md-3 col-sm-12">
-                            <label for="dataInicio" class="col-form-label-sm fw-bold">Data de Início:</label>
-                            <input type="date" class="form-control" name="dataInicio">
+            <div class="container">
+                <form action='/anuncios?' class="search pl-3">
+                    <fieldset class="border rounded-1 p-3">
+                        <div class="row d-flex align-items-end">
+                            <div class="col-md-3 col-sm-12">
+                                <label for="dataInicio" class="col-form-label-sm fw-bold">Data de Início:</label>
+                                <input type="date" class="form-control" name="dataInicio">
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <label for="dataTermino" class="col-form-label-sm fw-bold">Data de Término:</label>
+                                <input type="date" class="form-control" name="dataTermino">
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <label for="q" class="col-form-label-sm fw-bold">Cliente:</label>
+                                <input type="search" id="search" name="q" class="form-control" placeholder="Capgemini">
+                            </div>
+                            <div class="col-md-3 col-sm-12 d-grid gap-2">
+                                <button class="btn btn-outline-primary mt-2">Buscar</button>
+                            </div>
                         </div>
-                        <div class="col-md-3 col-sm-12">
-                            <label for="dataTermino" class="col-form-label-sm fw-bold">Data de Término:</label>
-                            <input type="date" class="form-control" name="dataTermino">
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <label for="q" class="col-form-label-sm fw-bold">Cliente:</label>
-                            <input type="search" id="search" name="q" class="form-control" placeholder="Capgemini">
-                        </div>
-                        <div class="col-md-3 col-sm-12 d-grid gap-2">
-                            <button class="btn btn-outline-primary mt-2">Buscar</button>
-                        </div>
+                    </fieldset>
+                </form>
+                <div class="row mt-4">
+                    <div class="col-md-3 col-sm-12 d-grid gap-2">
+                        <a href="/cadastro" type="button" class="btn btn-primary mt-2">Cadastrar Anúncio</a>
                     </div>
-                </fieldset>
-            </form>
-
-            <div class="row mt-4">
-                <div class="col-md-3 col-sm-12 d-grid gap-2">
-                    <a href="/cadastro" type="button" class="btn btn-primary mt-2">Cadastrar Anúncio</a>
                 </div>
             </div>
 
@@ -50,10 +51,10 @@
             <div class="table-responsive mt-5">
             <% if(anuncioNaoEncontrado === true) { %>
                 <div class="alert alert-danger mt-3" role="alert">
-                    Ops... não localizamos anúncios que correspondem a sua busca. <a href="/anuncios" class="alert-link">Clique aqui</a> para limpar a pesquisa, ou refaça a busca com outros critérios.
+                    Ops... não localizamos anúncios que correspondem a sua busca. <a href="/" class="alert-link">Clique aqui</a> para limpar a pesquisa, ou refaça a busca com outros critérios.
                 </div>
             <% } %>
-                <table class="table table-sm table-striped table-hover align-middle">
+                <table class="table table-bordered table-sm table-striped table-hover align-middle">
 
                 <% if(anuncioNaoEncontrado === false) { %>
                 <caption>
@@ -67,24 +68,29 @@
                 </caption>
                 <% } %>
                     <thead>
-                        <tr class="align-middle text-center">
+                        <tr class="align-middle text-center small">
                             <th scope="col">Nome</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Data de início</th>
                             <th scope="col">Data de término</th>
+                            <th scope="col">Duração (dias)</th>
+                            <th scope="col">Investimento diário (R$)</th>
                             <th scope="col">Valor total investido (R$)</th>
                             <th scope="col">Visualizações (máx)</th>
                             <th scope="col">Cliques (máx)</th>
                             <th scope="col">Compartilhamentos (máx)</th>
                         </tr>
+                
                     </thead>
-                    <tbody class="align-middle text-center">
+                    <tbody class="align-middle text-center small">
                         <% anuncios.forEach(function(anuncio) { %>
                             <tr>
                                 <th scope="row"> <%= anuncio.nome %></th> 
                                 <td> <%= anuncio.cliente %> </td> 
                                 <td> <%= anuncio.dataInicio %> </td> 
                                 <td> <%= anuncio.dataTermino %> </td> 
+                                <td> <%= anuncio.duracaoAnuncio %> </td> 
+                                <td> <%= anuncio.investimentoDia %> </td> 
                                 <td> <%= anuncio.investimentoTotal %> </td> 
                                 <td> <%= anuncio.visualizacoes %> </td> 
                                 <td> <%= anuncio.cliques %> </td> 
@@ -93,6 +99,11 @@
                         <% }); %>
                     </tbody>
                 </table>
+                <% if(anuncios.length === 0) { %>
+                    <div class="alert alert-primary mt-3" role="alert">
+                        Nenhum anúncio cadastrado. Clique em "Cadastrar Anúncio" ou <a href="/cadastro" class="alert-link">aqui</a> para efetuar um cadastro.
+                    </div>
+                <% } %>
             </div>
         </div>
     </div>
