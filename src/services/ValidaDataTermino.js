@@ -6,7 +6,7 @@ class ValidaDataTerminoService {
     this.dataTermino = dataTermino;
   }
 
-  validaDataTermino() {
+  call() {
     if (this.dataTermino < this.dataInicio) {
       throw new ValidationError(
         "A data de término deve ser superior ou igual a data de inicio"

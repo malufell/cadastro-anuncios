@@ -1,17 +1,17 @@
-const VisualizacoesPorCompartilhamento = require("./VisualizacoesPorCompartilhamento");
+const CalculaVisualizacoesPorCompartilhamentoService = require("./CalculaVisualizacoesPorCompartilhamento");
 
-class TotalVisualizacoesService {
+class CalculaTotalVisualizacoesService {
   constructor() {
   };
 
-  calculaTotalVisualizacoes() {
+  call() {
     const visualizacoesAnuncioOriginal = 100;
     const maxCompartilhamentos = 4;
     let visualizacoes = visualizacoesAnuncioOriginal;
     let retorno = 0;
 
     for (let i = 0; i <= maxCompartilhamentos; i++) {
-      visualizacoes = new VisualizacoesPorCompartilhamento(visualizacoes).calculaVisualizacoesPorCompartilhamento();
+      visualizacoes = new CalculaVisualizacoesPorCompartilhamentoService(visualizacoes).call();
       retorno += visualizacoes;
     };
 
@@ -19,4 +19,4 @@ class TotalVisualizacoesService {
   };
 };
 
-module.exports = TotalVisualizacoesService;
+module.exports = CalculaTotalVisualizacoesService;

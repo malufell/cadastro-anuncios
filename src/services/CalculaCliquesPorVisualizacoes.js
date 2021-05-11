@@ -1,9 +1,9 @@
-class CliquesPorVisualizacoesService {
+class CalculaCliquesPorVisualizacoesService {
   constructor(visualizacoes) {
     this.visualizacoes = visualizacoes;
   }
 
-  calculaCliquesPorVisualizacoes() {
+  call() {
     const visualizacoesAnuncioOriginal = 100;
     const cliquesAnuncioOriginal = 12;
     const conversaoDeCliques = visualizacoesAnuncioOriginal / cliquesAnuncioOriginal;
@@ -12,4 +12,4 @@ class CliquesPorVisualizacoesService {
   };
 };
 
-module.exports = CliquesPorVisualizacoesService;
+module.exports = CalculaCliquesPorVisualizacoesService;

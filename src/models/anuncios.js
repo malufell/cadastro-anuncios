@@ -1,9 +1,9 @@
 "use strict";
 const ValidaDataTerminoService = require('../services/ValidaDataTermino');
-const IntervaloEntreDatasService = require('../services/IntervaloEntreDatas');
-const TotalVisualizacoesPorInvestimentoService = require('../services/TotalVisualizacoesPorInvestimento');
-const CompartilhamentosPorCliquesService = require('../services/CompartilhamentosPorCliques');
-const CliquesPorVisualizacoesService = require('../services/CliquesPorVisualizacoes');
+const CalculaIntervaloEntreDatasService = require('../services/CalculaIntervaloEntreDatas');
+const CalculaTotalVisualizacoesPorInvestimentoService = require('../services/CalculaTotalVisualizacoesPorInvestimento');
+const CalculaCliquesPorVisualizacoesService = require('../services/CalculaCliquesPorVisualizacoes');
+const CalculaCompartilhamentosPorCliquesService = require('../services/CalculaCompartilhamentosPorCliques');
 
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -67,11 +67,11 @@ module.exports = (sequelize, DataTypes) => {
 
   // HOOKS
   Anuncios.beforeCreate("validaDataTerminoDepoisDaDataInicio", (anuncio) => {
-    new ValidaDataTerminoService(anuncio.dataInicio, anuncio.dataTermino).validaDataTermino(); 
+    new ValidaDataTerminoService(anuncio.dataInicio, anuncio.dataTermino).call(); 
   });
 
   Anuncios.beforeCreate("calculaDuracaoAnuncio", (anuncio) => {  
-    anuncio.duracaoAnuncio = new IntervaloEntreDatasService(anuncio.dataInicio, anuncio.dataTermino).calculaIntervaloEntreDatas();
+    anuncio.duracaoAnuncio = new CalculaIntervaloEntreDatasService(anuncio.dataInicio, anuncio.dataTermino).call();
   });
 
   Anuncios.beforeCreate('calculaTotalInvestimento', (anuncio) => {
@@ -79,15 +79,15 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Anuncios.beforeCreate("calculaTotalVisualizacoesPorInvestimento", (anuncio) => {
-    anuncio.visualizacoes = new TotalVisualizacoesPorInvestimentoService(anuncio.investimentoTotal).calculaTotalVisualizacoesPorInvestimento();
+    anuncio.visualizacoes = new CalculaTotalVisualizacoesPorInvestimentoService(anuncio.investimentoTotal).call();
   });
 
   Anuncios.beforeCreate("calculaQuantidadeCliques", (anuncio) => {
-    anuncio.cliques = Math.round(new CliquesPorVisualizacoesService(anuncio.visualizacoes).calculaCliquesPorVisualizacoes());
+    anuncio.cliques = Math.round(new CalculaCliquesPorVisualizacoesService(anuncio.visualizacoes).call());
   });
 
   Anuncios.beforeCreate("calculaQuantidadeCompartilhamntos", (anuncio) => {
-    anuncio.compartilhamentos =  Math.round(new CompartilhamentosPorCliquesService(anuncio.visualizacoes).calculaCompartilhamentosPorCliques());
+    anuncio.compartilhamentos =  Math.round(new CalculaCompartilhamentosPorCliquesService(anuncio.visualizacoes).call());
   });
 
   return Anuncios;

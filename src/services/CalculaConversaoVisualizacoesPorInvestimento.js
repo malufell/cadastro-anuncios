@@ -1,19 +1,19 @@
-const TotalVisualizacoesService = require("./TotalVisualizacoes");
+const CalculaTotalVisualizacoes = require("./CalculaTotalVisualizacoes");
 
-class ConversaoVisualizacoesPorInvestimentoService {
+class CalculaConversaoVisualizacoesPorInvestimentoService {
   constructor(visualizacoes) {
     this.visualizacoes = visualizacoes;
   }
 
-  calculaConversaoVisualizacoesPorInvestimento() {
+  call() {
     const visualizacoesAnuncioOriginal = 100;
     const investimentoBase = 1;
     const visualizacoesPorInvestimentoBase = 30;
     const investimentoPorVisualizacao = investimentoBase / visualizacoesPorInvestimentoBase;
-    const alcanceTotalDeVisualizacoes = new TotalVisualizacoesService(visualizacoesAnuncioOriginal).calculaTotalVisualizacoes();
+    const alcanceTotalDeVisualizacoes = new CalculaTotalVisualizacoes(visualizacoesAnuncioOriginal).call();
 
     return alcanceTotalDeVisualizacoes / (visualizacoesAnuncioOriginal * investimentoPorVisualizacao);
   };
 };
 
-module.exports = ConversaoVisualizacoesPorInvestimentoService;
+module.exports = CalculaConversaoVisualizacoesPorInvestimentoService;

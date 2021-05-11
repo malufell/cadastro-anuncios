@@ -1,10 +1,10 @@
-class IntervaloEntreDatasService {
+class CalculaIntervaloEntreDatasService {
   constructor(dataInicio, dataTermino) {
     this.dataInicio = dataInicio;
     this.dataTermino = dataTermino;
   }
 
-  calculaIntervaloEntreDatas() {
+  call() {
     const dataInicio = new Date(this.dataInicio).getTime();
     const dataFim = new Date(this.dataTermino).getTime();
 
@@ -12,4 +12,4 @@ class IntervaloEntreDatasService {
   };
 };
 
-module.exports = IntervaloEntreDatasService;
+module.exports = CalculaIntervaloEntreDatasService;
