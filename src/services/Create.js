@@ -1,8 +1,7 @@
 const database = require('../models');
 
 class CreateService {
-  constructor(nomeDoModelo) {
-    this.nomeDoModelo = nomeDoModelo
+  constructor() {
   };
 
   async criaRegistro(dados) {

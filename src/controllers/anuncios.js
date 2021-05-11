@@ -1,11 +1,8 @@
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const CreateService = require('../services/Create');
-const createService = new CreateService();
 const FindAllService = require('../services/FindAll');
-const findAllService = new FindAllService();
 const FormataNumeroEmMoedaService = require('../services/FormataNumeroEmMoeda');
-
 
 class Anuncios {
 
@@ -13,7 +10,7 @@ class Anuncios {
     const novoAnuncio = req.body;
 
     try {
-      await createService.criaRegistro(novoAnuncio);
+      await new CreateService().criaRegistro(novoAnuncio);
       return res.redirect('/');
 
     } catch (error) {
@@ -25,7 +22,7 @@ class Anuncios {
     };
   };
 
-  static async buscaRegistros(req, resp) {
+  static async buscaRegistros(req, res) {
     const busca = req.query.q ? req.query.q : "";
     const { dataInicio, dataTermino } = req.query;
 
@@ -46,8 +43,7 @@ class Anuncios {
     };
     
     try {
-      let anuncios = await findAllService.buscaTodosRegistros(whereCondicoes);
-      const anuncioNaoEncontrado = ((busca || dataInicio || dataTermino) && anuncios.length == 0);
+      let anuncios = await new FindAllService(whereCondicoes).buscaTodosRegistros();
 
       anuncios = anuncios.map(function (anuncio) {
         anuncio.investimentoTotal = new FormataNumeroEmMoedaService(anuncio.investimentoTotal).call();
@@ -55,7 +51,9 @@ class Anuncios {
         return anuncio;
       });
 
-      return resp.render("index", { 
+      const anuncioNaoEncontrado = ((busca || dataInicio || dataTermino) && anuncios.length == 0);
+
+      return res.render("index", { 
         anuncios: anuncios, 
         cliente: busca, 
         dataInicio: dataInicio, 
@@ -64,7 +62,7 @@ class Anuncios {
       });
 
     } catch (error) {
-      return resp.status(500).json(error.message); 
+      return res.status(500).json(error.message); 
     };
   };
 };
