@@ -2,6 +2,8 @@
 
 App desenvolvido para cadastro de anúncios e relatório dos anúncios cadastrados:
 
+Aplicação no ar: https://cadastro-anuncios.herokuapp.com/
+
 - Ao acessar a página principal o usuário visualiza a listagem de todos os anúncios cadastrados no período
 - Na área de busca é possível filtrar os dados do relatório por datas e clientes
 - Ao clicar no botão "cadastrar anúncio" o usuário poderá inserir um novo anúncio na base de dados
@@ -29,7 +31,7 @@ App desenvolvido para cadastro de anúncios e relatório dos anúncios cadastrad
 1. No terminal, clonar o projeto: `git clone https://github.com/malufell/cadastro-anuncios.git`
 2. Entrar na pasta do projeto: `cd cadastro-anuncios`
 3. Instalar as dependências: `npm install`
-4. Configurar o banco de dados PostgreSQL: no arquivo `src/config/config.json` é necessário atualizar as informações abaixo conforme o PostgreSQL local
+4. Configurar o banco de dados PostgreSQL: no arquivo `src/config/config.json` é necessário atualizar as informações abaixo conforme o PostgreSQL local (o banco de dados já deve estar criado através do próprio postgres)
 ```
 {
   "development": {
