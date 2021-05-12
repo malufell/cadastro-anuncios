@@ -16,6 +16,7 @@ App desenvolvido para cadastro de anúncios e relatório dos anúncios cadastrad
 - ORM [Sequelize](https://sequelize.org/master/);
 - estruturação das views com o [EJS](https://ejs.co/); 
 - [Bootstrap](https://getbootstrap.com/) para estilização das views;
+- [Jest](https://jestjs.io/pt-BR/) para implementação de testes unitários;
 
 
 ### Requisitos
