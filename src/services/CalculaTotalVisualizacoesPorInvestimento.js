@@ -6,10 +6,10 @@ class CalculaTotalVisualizacoesPorInvestimentoService {
   }
 
   call() {
-    const TaxaDeVisualizacoesPorInvestimento = new CalculaConversaoVisualizacoesPorInvestimentoService().call();
+    const taxaDeVisualizacoesPorInvestimento = new CalculaConversaoVisualizacoesPorInvestimentoService().call();
 
-    return Math.round(this.investimento * TaxaDeVisualizacoesPorInvestimento);
-  }
-}
+    return this.investimento * taxaDeVisualizacoesPorInvestimento;
+  };
+};
 
 module.exports = CalculaTotalVisualizacoesPorInvestimentoService;

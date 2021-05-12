@@ -52,6 +52,11 @@ module.exports = (sequelize, DataTypes) => {
       investimentoDia: {
         type: DataTypes.FLOAT,
         allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Informe o valor de investimento por dia",
+          },
+        },
       },
       duracaoAnuncio: DataTypes.INTEGER,
       visualizacoes: DataTypes.INTEGER,
@@ -79,7 +84,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Anuncios.beforeCreate("calculaTotalVisualizacoesPorInvestimento", (anuncio) => {
-    anuncio.visualizacoes = new CalculaTotalVisualizacoesPorInvestimentoService(anuncio.investimentoTotal).call();
+    anuncio.visualizacoes = Math.round(new CalculaTotalVisualizacoesPorInvestimentoService(anuncio.investimentoTotal).call());
   });
 
   Anuncios.beforeCreate("calculaQuantidadeCliques", (anuncio) => {

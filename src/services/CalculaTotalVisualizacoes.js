@@ -1,8 +1,7 @@
 const CalculaVisualizacoesPorCompartilhamentoService = require("./CalculaVisualizacoesPorCompartilhamento");
 
 class CalculaTotalVisualizacoesService {
-  constructor() {
-  };
+  constructor() {};
 
   call() {
     const visualizacoesAnuncioOriginal = 100;

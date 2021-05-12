@@ -1,4 +1,4 @@
-const CalculaTotalVisualizacoes = require("./CalculaTotalVisualizacoes");
+const CalculaTotalVisualizacoesService = require("./CalculaTotalVisualizacoes");
 
 class CalculaConversaoVisualizacoesPorInvestimentoService {
   constructor(visualizacoes) {
@@ -10,7 +10,7 @@ class CalculaConversaoVisualizacoesPorInvestimentoService {
     const investimentoBase = 1;
     const visualizacoesPorInvestimentoBase = 30;
     const investimentoPorVisualizacao = investimentoBase / visualizacoesPorInvestimentoBase;
-    const alcanceTotalDeVisualizacoes = new CalculaTotalVisualizacoes(visualizacoesAnuncioOriginal).call();
+    const alcanceTotalDeVisualizacoes = new CalculaTotalVisualizacoesService(visualizacoesAnuncioOriginal).call();
 
     return alcanceTotalDeVisualizacoes / (visualizacoesAnuncioOriginal * investimentoPorVisualizacao);
   };
