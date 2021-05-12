@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
 
             <!-- Busca -->
             <div class="container">
-                <form action='/anuncios?' class="search pl-3">
+                <form action='/?' class="search pl-3">
                     <fieldset class="border rounded-1 p-3">
                         <div class="row d-flex align-items-end">
                             <div class="col-md-3 col-sm-12">
@@ -41,7 +41,7 @@
                     </fieldset>
                 </form>
                 <div class="row mt-4">
-                    <div class="col-md-3 col-sm-12 d-grid gap-2">
+                    <div class="col-lg-3 col-md-4 col-sm-12 d-grid gap-2">
                         <a href="/cadastro" type="button" class="btn btn-primary mt-2">Cadastrar Anúncio</a>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
 
             <!-- Relatório -->
             <div class="table-responsive mt-5">
-            <% if(anuncioNaoEncontrado === true) { %>
+            <% if(anuncioNaoEncontrado) { %>
                 <div class="alert alert-danger mt-3" role="alert">
                     Ops... não localizamos anúncios que correspondem a sua busca. <a href="/" class="alert-link">Clique aqui</a> para limpar a pesquisa, ou refaça a busca com outros critérios.
                 </div>
@@ -64,7 +64,8 @@
 
                     <%= !dataInicio && !dataTermino ? `Lista dos anúncios de todo o período,` : ""%>
 
-                    <%= cliente ? `referente aos clientes com o termo "${cliente}" no nome` : `contemplando todos os clientes` %>
+                    <%= cliente ? `contemplando clientes com o termo "${cliente}" no nome` : `contemplando todos os clientes` %>
+                    <p><a href="/" class="small">Limpar pesquisa</a></p>
                 </caption>
                 <% } %>
                     <thead>
@@ -87,7 +88,7 @@
                             <tr>
                                 <th scope="row"> <%= anuncio.nome %></th> 
                                 <td> <%= anuncio.cliente %> </td> 
-                                <td> <%= anuncio.dataInicio %> </td> 
+                                <td class="data"> <%= anuncio.dataInicio %> </td> 
                                 <td> <%= anuncio.dataTermino %> </td> 
                                 <td> <%= anuncio.duracaoAnuncio %> </td> 
                                 <td> <%= anuncio.investimentoDia %> </td> 
@@ -99,7 +100,7 @@
                         <% }); %>
                     </tbody>
                 </table>
-                <% if(anuncios.length === 0) { %>
+                <% if(anuncios.length === 0 && !anuncioNaoEncontrado) { %>
                     <div class="alert alert-primary mt-3" role="alert">
                         Nenhum anúncio cadastrado. Clique em "Cadastrar Anúncio" ou <a href="/cadastro" class="alert-link">aqui</a> para efetuar um cadastro.
                     </div>
@@ -108,5 +109,19 @@
         </div>
     </div>
 
+    <script>
+        const datas = document.querySelectorAll('data');
+
+        function formataDatas() {
+
+            document.querySelectorAll('data').map(function (data) {
+                let str = new String(data).split('-').reverse().join('/')
+                console.log(data)
+                return str;
+            });
+            console.log(str)
+            return document.querySelectorAll('data').value = str;
+        };
+    </script>
 </body>
 </html>

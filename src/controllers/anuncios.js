@@ -1,6 +1,7 @@
 const database = require("../models");
 const FormataNumeroEmMoedaService = require('../services/FormataNumeroEmMoeda');
 const CriaQueryBuscaService = require('../services/CriaQueryBusca');
+const FormataDataService = require("../services/FormataData")
 
 class Anuncios {
 
@@ -29,6 +30,9 @@ class Anuncios {
       anuncios = anuncios.map(function (anuncio) {
         anuncio.investimentoTotal = new FormataNumeroEmMoedaService(anuncio.investimentoTotal).call();
         anuncio.investimentoDia = new FormataNumeroEmMoedaService(anuncio.investimentoDia).call();
+        anuncio.dataInicio = new FormataDataService(anuncio.dataInicio).call();
+        anuncio.dataTermino = new FormataDataService(anuncio.dataTermino).call();
+
         return anuncio;
       });
 

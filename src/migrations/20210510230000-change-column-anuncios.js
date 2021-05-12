@@ -2,20 +2,20 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         return Promise.all([
             queryInterface.changeColumn('Anuncios', 'dataInicio', {
-                type: Sequelize.DATEONLY,
+                type: Sequelize.STRING,
             }),
             queryInterface.changeColumn('Anuncios', 'dataTermino', {
-                type: Sequelize.DATEONLY,
+                type: Sequelize.STRING,
             }),
         ])
     },
     down: (queryInterface, Sequelize) => {
         return Promise.all([
             queryInterface.changeColumn('Anuncios', 'dataInicio', {
-                type: Sequelize.DATE,
+                type: Sequelize.DATEONLY,
             }),
             queryInterface.changeColumn('Anuncios', 'dataTermino', {
-                type: Sequelize.DATE,
+                type: Sequelize.DATEONLY,
             }),
         ])
     }

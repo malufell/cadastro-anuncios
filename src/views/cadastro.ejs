@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
 
     <form method="POST" action="/cadastro">
         <div class="container-fluid">
-            <div class="container w-50">
+            <div class="container col-sm-12 col-md-10 col-lg-6">
                 <% if(error) { %>
                     <% error.forEach(function(erro) { %>
                         <div class="alert alert-danger mr-3 ml-3" role="alert">
@@ -41,13 +41,13 @@
                     <input type="date" min="<%=dados.dataInicio%>" class="form-control" name="dataTermino" value="<%=dados.dataTermino%>">
                 </div>
                 <div class="mb-3">
-                    <label for="investimento" class="form-label fw-bold">Investimento por dia:</label>
-                    <span class="text-muted small">(apenas números)</span>
-                    <div class="input-group">
+                    <label for="investimento" class="form-label fw-bold" id="labelInvestimentoDia">Investimento por dia:</label>
+                    <div class="input-group mb-1">
                         <span class="input-group-text">R$</span>
-                        <input type="number" step="0.01" class="form-control" name="investimentoDia" value="<%=dados.investimentoDia%>" placeholder="exemplo: 30,00"
+                        <input type="number" step="0.01" class="form-control" id="investimentoDia" name="investimentoDia" value="<%=dados.investimentoDia%>" placeholder="exemplo: 30,00"
                             aria-label="Quantidade em reais" >
                     </div>
+                    <span id="investimentoInformado"></span>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">Cadastrar anúncio</button>
@@ -55,6 +55,16 @@
             </div>
         </div>
     </form>
+
+    <script>
+        const investimentoDia = document.getElementById('investimentoDia');
+        investimentoDia.addEventListener("input", exibePreviaDoValorComoMoedaBRL, false)
+
+        function exibePreviaDoValorComoMoedaBRL() {
+            let valor = +investimentoDia.value;
+            document.getElementById("investimentoInformado").textContent = "Prévia: " + valor.toLocaleString('fullwide', { maximumFractionDigits:2, style:'currency', currency:'BRL', useGrouping:true }) 
+        };
+    </script>
 </body>
 
 </html>

@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       dataInicio: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: {
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       dataTermino: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: {
