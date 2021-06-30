@@ -1,9 +1,7 @@
 "use strict";
 const ValidaDataTerminoService = require('../services/ValidaDataTermino');
 const CalculaIntervaloEntreDatasService = require('../services/CalculaIntervaloEntreDatas');
-const CalculaTotalVisualizacoesPorInvestimentoService = require('../services/CalculaTotalVisualizacoesPorInvestimento');
-const CalculaCliquesPorVisualizacoesService = require('../services/CalculaCliquesPorVisualizacoes');
-const CalculaCompartilhamentosPorCliquesService = require('../services/CalculaCompartilhamentosPorCliques');
+const CalculadoraAnunciosService = require('../services/CalculadoraAnuncios');
 
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -83,16 +81,11 @@ module.exports = (sequelize, DataTypes) => {
     anuncio.investimentoTotal = Number(anuncio.duracaoAnuncio * anuncio.investimentoDia);
   });
 
-  Anuncios.beforeCreate("calculaTotalVisualizacoesPorInvestimento", (anuncio) => {
-    anuncio.visualizacoes = Math.round(new CalculaTotalVisualizacoesPorInvestimentoService(anuncio.investimentoTotal).call());
-  });
-
-  Anuncios.beforeCreate("calculaQuantidadeCliques", (anuncio) => {
-    anuncio.cliques = Math.round(new CalculaCliquesPorVisualizacoesService(anuncio.visualizacoes).call());
-  });
-
-  Anuncios.beforeCreate("calculaQuantidadeCompartilhamntos", (anuncio) => {
-    anuncio.compartilhamentos =  Math.round(new CalculaCompartilhamentosPorCliquesService(anuncio.visualizacoes).call());
+  Anuncios.beforeCreate("calculadoraAnuncios", (anuncio) => {
+    const { totalVisualizacoes, totalCliques, totalCompartilhamentos } = new CalculadoraAnunciosService(anuncio.investimentoTotal).call();
+    anuncio.visualizacoes = Math.round(totalVisualizacoes);
+    anuncio.cliques = Math.round(totalCliques);
+    anuncio.compartilhamentos = Math.round(totalCompartilhamentos);
   });
 
   return Anuncios;
