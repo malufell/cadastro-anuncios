@@ -1,0 +1,92 @@
+<!-- /*
+ =============================================================================
+                             DOCUMENTAÇÃO
+ =============================================================================
+  Requisitos: 
+    Navegador de internet;
+ 
+  Como executar: 
+ 1- abra este arquivo no navegador de internet;
+ 2- no input informe o valor de investimento;
+ 3- clique em "Calcular!"
+ 4- será exibido na tela o resultado da projeção aproximada da quantidade 
+    máxima de pessoas que visualizarão o mesmo anúncio, quantidade de cliques
+    e compartilhamentos.
+ */ -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Calculadora de Anúncios" />
+  <meta name="author" content="Maria Fell" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous" />
+  <title>Calculadora de Anúncios</title>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="container col-sm-12 col-md-8 col-lg-6">
+      <h1 class="mt-5 text-center"><strong>Divulga Tudo</strong></h1>
+      <h3 class="text-center">Calculadora de Anúncios</h3>
+      <div class="row d-flex justify-content-center">
+        <div class="input-group mb-3 mt-5 w-75">
+          <span class="input-group-text">R$</span>
+          <input type="number" class="form-control" id="investimento" placeholder="Digite aqui o valor de investimento"
+            aria-label="valor de investimento" aria-describedby="botao-calcular" required>
+          <button class="btn btn-primary" type="button" id="botao-calcular" onclick="return calculadora()">Calcular!</button>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <div class="w-75 mt-4 text-center" role="alert" id="resultado" hidden>
+          <h5>Resultado de alcance do anúncio:</h5>
+          <p class="mb-1" id="visualizacoes"></p>
+          <p class="mb-1" id="cliques"></p>
+          <p class="mb-1" id="compartilhamentos"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  const qntVisualizacoesPorInvestimento = 30;
+  const taxaDeCliques = 12 / 100; // a cada 100 pessoas que visualizam o anúncio 12 clicam nele
+  const taxaDeCompartilhamentos = 3 / 20; // a cada 20 pessoas que clicam no anúncio 3 compartilham
+  const maximoDeCompartilhamentos = 4; // o mesmo anúncio é compartilhado no máximo 4 vezes em sequência
+  const totalVisualizacoesPorCompartilhamento = 40;
+
+  function calculadora() {
+    const investimento = document.getElementById("investimento").value;
+    let visualizacoes = (investimento * qntVisualizacoesPorInvestimento);
+    let cliques = visualizacoes * taxaDeCliques;
+    let compartilhamentos = cliques * taxaDeCompartilhamentos;
+    let totalVisualizacoes = visualizacoes;
+    let totalCliques = cliques;
+    let totalCompartilhamentos = compartilhamentos;
+
+    for (let i = 1; i <= maximoDeCompartilhamentos; i++) {
+      visualizacoes = compartilhamentos * totalVisualizacoesPorCompartilhamento;
+      cliques = visualizacoes * taxaDeCliques;
+      compartilhamentos = cliques * taxaDeCompartilhamentos;
+
+      totalVisualizacoes += visualizacoes;
+      totalCliques += cliques;
+      totalCompartilhamentos += compartilhamentos;
+
+      if (i == maximoDeCompartilhamentos) {
+        const visualizacoesUltimoCompartilhamento = compartilhamentos * totalVisualizacoesPorCompartilhamento;
+        totalVisualizacoes += visualizacoesUltimoCompartilhamento;
+      };
+    };
+
+    document.getElementById('resultado').hidden = false;
+    document.getElementById('visualizacoes').textContent = `${(totalVisualizacoes).toFixed(0)} visualizações`;
+    document.getElementById('cliques').textContent = `${(totalCliques).toFixed(0)} cliques`;
+    document.getElementById('compartilhamentos').textContent = `${(totalCompartilhamentos).toFixed(0)} compartilhamentos`;
+  };
+</script>
