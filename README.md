@@ -4,7 +4,7 @@
 
 Calculadora de anúncios, disponível em https://github.com/malufell/cadastro-anuncios/blob/master/calculadora.html
 
-- Requisitos: navegador;
+- Requisitos: navegador de internet;
 - Como utilizar a calculadora: 
 1. abra o arquivo "calculadora.html" no navegador de internet;
 2. no input informe o valor de investimento;
